@@ -6,11 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Authenticate {
-  public static Connection conn;
+  private Connection conn;
+  private static Authenticate auth;
   
-  public Authenticate() {
+  private Authenticate() {
     super();
     conn = Connecteur.instance().getConnection();
+  }
+  
+  public static Authenticate instance() {
+    if(Authenticate.auth == null) { Authenticate.auth = new Authenticate(); }
+    return Authenticate.auth;
   }
   
   public boolean isAuth(String user, String password) {
