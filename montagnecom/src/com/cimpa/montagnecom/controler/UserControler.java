@@ -12,7 +12,7 @@ import com.cimpa.montagnecom.dao.ManageMontagne;
 /**
  * Servlet implementation class UserControler
  */
-@WebServlet("/UserControler")
+@WebServlet("/user")
 public class UserControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
