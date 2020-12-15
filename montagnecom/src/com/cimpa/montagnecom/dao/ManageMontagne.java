@@ -137,6 +137,53 @@ public class ManageMontagne {
     return list;
   }
   
+  public List<Montagne> selectMontagneList(int limit, int offset, Filtre f) {
+    List<Montagne> list = new LinkedList<Montagne> ();
+    String query = " select * from montagne "
+        + " join chaine on chaine.id_chaine = montagne.id_chaine "
+        + " join type on type.id_type = montagne.id_type "
+        + " where nom_montagne like ? ";
+    if (f.getIdChaine() != 0) {
+      query += " and montagne.id_chaine = ? ";
+    }
+    if (f.getIdType() != 0) {
+      query += " and montagne.id_type = ? ";
+    }
+    query += " limit ?, ? ";
+    System.out.println(query);
+    try {
+      PreparedStatement prst = conn.prepareStatement(query);
+      String recherche = f.getRecherche() != null && ! f.getRecherche().equals("") ? "%" + f.getRecherche() + "%" : "%";
+      int i = 0;
+      prst.setString(++i, recherche);
+      if (f.getIdChaine() != 0) {
+        prst.setInt(++i, f.getIdChaine());
+      }
+      if (f.getIdType() != 0) {
+        prst.setInt(++i, f.getIdType());
+      }
+      prst.setInt(++i, offset);
+      prst.setInt(++i, limit);
+      ResultSet rs = prst.executeQuery();
+      if(rs != null) {
+        while(rs.next()) {
+          Montagne m = new Montagne();
+          m.setNom(rs.getString("nom_montagne"));
+          m.setAltitude(rs.getInt("altitude"));
+          m.setDescription(rs.getString("Description"));
+          m.setPrix(rs.getDouble("prix"));
+          m.setImage(rs.getString("image"));
+          m.setChaine(new Chaine(rs.getInt("id_chaine"), rs.getString("nom_chaine")));
+          m.setType(new Type(rs.getInt("id_type"), rs.getString("nom_type")));
+          list.add(m);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+  
   public List<Type> selectTypeList() {
     List<Type> list = new LinkedList<Type> ();
     try {

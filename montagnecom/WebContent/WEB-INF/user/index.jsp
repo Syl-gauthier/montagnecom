@@ -15,29 +15,30 @@
 		ou un roc)</h2>
 	<div class="container">
 		<form method="get" action="#">
+			<input type="hidden" name="page" value="filter" />
 			<div class="row">
 				<div class="col">
 					<div class="input-group mb-2">
 						<div class="input-group-prepend">
 							<div class="input-group-text">Rechercher</div>
 						</div>
-						<input type="text" class="form-control" id="inlineFormInputGroup"
+						<input type="text" name="recherche" class="form-control" id="inlineFormInputGroup"
 							placeholder="...">
 					</div>
 				</div>
 				<div class="mb-3 col">
-					<select class="custom-select">
-						<option value="" disabled selected>Type</option>
+					<select class="custom-select" name="type">
+						<option value="" selected>Tout les type</option>
 						<c:forEach var="t" items="${listType}">
-							<option value="$t.nom">${t.nom}</option>
+							<option value="${t.id}">${t.nom}</option>
 						</c:forEach>
 					</select>
 				</div>
 				<div class="mb-3 col">
-					<select class="custom-select">
-						<option value="" disabled selected>Chaine de montagne</option>
+					<select class="custom-select" name="chaine">
+						<option value="" selected>Toute les chaines</option>
 						<c:forEach var="c" items="${listChaine}">
-							<option value="$t.nom">${c.nom}</option>
+							<option value="${c.id}">${c.nom}</option>
 						</c:forEach>
 					</select>
 				</div>
