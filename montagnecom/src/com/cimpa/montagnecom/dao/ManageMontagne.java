@@ -39,7 +39,7 @@ public class ManageMontagne {
       prst.setInt(4, montagne.getAltitude());
       prst.setString(5, montagne.getDescription());
       prst.setInt(6, montagne.getChaine().getId());
-      prst.setInt(7, montagne.getChaine().getId());
+      prst.setInt(7, montagne.getType().getId());
       prst.execute();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -47,7 +47,24 @@ public class ManageMontagne {
   }
   
   public void updateMontagne(Montagne montagne) {
-    //TODO
+    if (montagne.getChaine().getId() == 0) montagne.setChaine(insertChaine(montagne.getChaine().getNom()));
+    if (montagne.getType().getId() == 0) montagne.setType(insertType(montagne.getType().getNom()));
+    PreparedStatement prst;
+    try {
+      prst = conn.prepareStatement(
+          "update montagne set altitude = ?, prix = ?, image = ?, description = ?, id_chaine = ?, id_type = ? where nom_montagne = ?"
+      );
+      prst.setInt(1, montagne.getAltitude());
+      prst.setDouble(2, montagne.getPrix());
+      prst.setString(3, montagne.getImage());
+      prst.setString(4, montagne.getDescription());
+      prst.setInt(5, montagne.getChaine().getId());
+      prst.setInt(6, montagne.getType().getId());
+      prst.setString(7, montagne.getNom());
+      prst.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }    
   }
   
   public void deleteMontagne(String nom) {
@@ -80,6 +97,8 @@ public class ManageMontagne {
         montagne.setNom(rs.getString("nom_montagne"));
         montagne.setPrix(rs.getDouble("prix"));
         montagne.setDescription(rs.getString("description"));
+        montagne.setChaine(new Chaine(rs.getInt("id_chaine"), rs.getString("nom_chaine")));
+        montagne.setType(new Type(rs.getInt("id_type"), rs.getString("nom_type")));
         return montagne;
       }
     } catch (SQLException e) {
