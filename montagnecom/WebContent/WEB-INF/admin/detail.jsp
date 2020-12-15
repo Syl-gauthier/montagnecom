@@ -40,7 +40,7 @@
 				</div>
 				<div class="form-group  col-2 offset-2">
 					<label for="mimage">Image : </label> <input class="form-control"
-						id="mimage" type="text" name="image" value="${m.image}" />
+						id="mimage" type="text" name="image" value="${m.image}" readonly />
 				</div>
 			</div>
 			<div class="form-row">

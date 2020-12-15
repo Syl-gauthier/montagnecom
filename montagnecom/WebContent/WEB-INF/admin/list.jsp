@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,8 @@
 	<div class="container-flud">
 		<div class="row my-3">
 			<div class="col-6 offset-3">
-				<form class="border border-primary rounded p-1" method="post" action="">
+				<form class="border border-primary rounded p-1" method="post"
+					action="" enctype="multipart/form-data">
 					<h2 class="text-center">Ajouter une montagne</h2>
 					<input type="hidden" name="form" value="ajout" />
 					<div class="form-row m-2">
@@ -58,9 +60,15 @@
 						<label for="mimage"
 							class="col-1 offset-1 col-form-label col-form-label-sm">Image
 							: </label>
-						<div class="col-2">
-							<input class="form-control form-control-sm" id="mimage"
-								type="text" name="image" />
+						<div class="col-3">
+
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="mimage" name="image">
+									<label class="custom-file-label" for="mimage">...</label>
+								</div>
+							</div>
+
 						</div>
 					</div>
 					<div class="form-row m-2">
@@ -100,8 +108,8 @@
 								<td>${m.nom}</td>
 								<td>${m.prix}</td>
 								<td>${m.altitude}</td>
-								<td>${m.description}</td>
-								<td>${m.image}</td>
+								<td>${fn:substring(m.description, 0, 80)}</td>
+								<td>${fn:substring(m.image, 0, 25)}</td>
 								<td>${m.chaine.nom}</td>
 								<td>${m.type.nom}</td>
 								<td><c:url var="detailurl" value="">
@@ -111,9 +119,11 @@
 								</td>
 								<td>
 									<form method="post" action="">
-										<input type="hidden" name="form" value="suppr" />
-										<input type="hidden" name="nom" value="${m.nom}" />
-										<input type="submit" class="btn-danger btn-sm btn" onclick="return confirm('Confirmer la suppression de ${m.nom}');" value="supprimer" />
+										<input type="hidden" name="form" value="suppr" /> <input
+											type="hidden" name="nom" value="${m.nom}" /> <input
+											type="submit" class="btn-danger btn-sm btn"
+											onclick="return confirm('Confirmer la suppression de ${m.nom}');"
+											value="supprimer" />
 									</form>
 								</td>
 							</tr>
@@ -123,5 +133,28 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+		crossorigin="anonymous"></script>
+	<script>
+		$('#mimage').on('change', function() {
+			var fileInput = document.getElementById('mimage');
+			console.log(fileInput.files);
+			if(fileInput.files[0]) {
+				var filename = fileInput.files[0].name;
+				//replace the "Choose a file" label
+				$(this).next('.custom-file-label').text(filename);
+			}
+		})
+	</script>
+
 </body>
 </html>

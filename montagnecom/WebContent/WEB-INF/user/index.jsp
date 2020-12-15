@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +51,7 @@
 			<c:forEach var="m" items="${listMontagne}">
 				<div class="col">
 					<div class="card" style="width: 18rem;">
-						<img src="${m.image}" class="card-img-top" alt="${m.nom}">
+						<img src="image?nom=${m.image}" class="card-img-top" alt="${m.nom}">
 						<div class="card-body">
 							<p class="card-title h5">${m.nom}
 								<span class="card-subtitle text-muted"> ${m.altitude}m</span>
@@ -60,7 +61,7 @@
 									class="mx-1"> Type: ${m.getType().getNom()}</span>
 							</h6>
 							<div>Prix: ${m.getPrix()}€</div>
-							<p class="card-text">${m.description}</p>
+							<p class="card-text">${fn:substring(m.description, 0, 200)}</p>
 							<a class="btn btn-success" href="#?type=detail&nom=${m.nom}">Détail</a>
 						</div>
 					</div>
