@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Path;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -42,14 +43,16 @@ public class Images extends HttpServlet {
 	      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	      return;
 	    }
-
 	    response.setContentType(mime);
+	    String[] splitPath = filename.split("[\\/]");
+	    filename = splitPath[splitPath.length-1];
+	    System.out.println(filename);
 	    File file = new File("C:/img" + File.separator + filename);
 	    response.setContentLength((int)file.length());
 
 	    FileInputStream in = new FileInputStream(file);
 	    OutputStream out = response.getOutputStream();
-
+	    
 	    // Copy the contents of the file to the output stream
 	     byte[] buf = new byte[1024];
 	     int count = 0;

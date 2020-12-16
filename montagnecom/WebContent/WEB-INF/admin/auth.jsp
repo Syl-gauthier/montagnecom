@@ -26,7 +26,7 @@
 							<label for="password" class="input-group-text">Mot de
 								passe</label>
 						</div>
-						<input class="form-control" type="text" id="password"
+						<input class="form-control" type="password" id="password"
 							name="password" />
 					</div>
 					<div class=" text-center">
