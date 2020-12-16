@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,7 @@
 					<select class="custom-select" name="type">
 						<option value="" selected>Tout les type</option>
 						<c:forEach var="t" items="${listType}">
-							<option value="${t.id}">${t.nom}</option>
+							<option value="${fn:escapeXml(t.id)}">${fn:escapeXml(t.nom)}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -38,7 +39,7 @@
 					<select class="custom-select" name="chaine">
 						<option value="" selected>Toute les chaines</option>
 						<c:forEach var="c" items="${listChaine}">
-							<option value="${c.id}">${c.nom}</option>
+							<option value="${fn:escapeXml(c.id)}">${fn:escapeXml(c.nom)}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -52,18 +53,18 @@
 			<c:forEach var="m" items="${listMontagne}">
 				<div class="col">
 					<div class="card" style="width: 18rem;">
-						<img src="image?nom=${m.image}" class="card-img-top" alt="${m.nom}">
+						<img src="image?nom=${fn:escapeXml(m.image)}" class="card-img-top" alt="${fn:escapeXml(m.nom)}">
 						<div class="card-body">
-							<p class="card-title h5">${m.nom}
-								<span class="card-subtitle text-muted"> ${m.altitude}m</span>
+							<p class="card-title h5">${fn:escapeXml(m.nom)}
+								<span class="card-subtitle text-muted"> ${fn:escapeXml(m.altitude)}m</span>
 							</p>
 							<h6 class="card-subtitle mb-2 text-muted">
-								<span class="mx-1">Chaine: ${m.getChaine().getNom()}</span> <span
-									class="mx-1"> Type: ${m.getType().getNom()}</span>
+								<span class="mx-1">Chaine: ${fn:escapeXml(m.chaine.nom)}</span> <span
+									class="mx-1"> Type: ${fn:escapeXml(m.type.nom)}</span>
 							</h6>
-							<div>Prix: ${m.getPrix()}€</div>
-							<p class="card-text">${fn:substring(m.description, 0, 200)}</p>
-							<a class="btn btn-success" href="#?type=detail&nom=${m.nom}">Détail</a>
+							<div>Prix: ${fn:escapeXml(m.prix)}€</div>
+							<p class="card-text">${fn:substring(fn:escapeXml(m.description), 0, 200)}</p>
+							<a class="btn btn-success" href="#?type=detail&nom=${fn:escapeXml(m.nom)}">Détail</a>
 						</div>
 					</div>
 				</div>

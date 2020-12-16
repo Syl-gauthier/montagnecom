@@ -105,24 +105,24 @@
 					<tbody>
 						<c:forEach var="m" items="${listMontagne}">
 							<tr class="text-center">
-								<td>${m.nom}</td>
-								<td>${m.prix}</td>
-								<td>${m.altitude}</td>
-								<td>${fn:substring(m.description, 0, 80)}</td>
-								<td>${fn:substring(m.image, 0, 25)}</td>
-								<td>${m.chaine.nom}</td>
-								<td>${m.type.nom}</td>
+								<td>${fn:escapeXml(m.nom)}</td>
+								<td>${fn:escapeXml(m.prix)}</td>
+								<td>${fn:escapeXml(m.altitude)}</td>
+								<td>${fn:substring(fn:escapeXml(m.description), 0, 80)}</td>
+								<td>${fn:substring(fn:escapeXml(m.image), 0, 25)}</td>
+								<td>${fn:escapeXml(m.chaine.nom)}</td>
+								<td>${fn:escapeXml(m.type.nom)}</td>
 								<td><c:url var="detailurl" value="">
 										<c:param name="page" value="detail" />
-										<c:param name="nommontagne" value="${m.nom}" />
-									</c:url> <a class="btn btn-success btn-sm" href="${detailurl}">Detail</a>
+										<c:param name="nommontagne" value="${fn:escapeXml(m.nom)}" />
+									</c:url> <a class="btn btn-success btn-sm" href="${fn:escapeXml(detailurl)}">Detail</a>
 								</td>
 								<td>
 									<form method="post" action="">
 										<input type="hidden" name="form" value="suppr" /> <input
-											type="hidden" name="nom" value="${m.nom}" /> <input
+											type="hidden" name="nom" value="${fn:escapeXml(m.nom)}" /> <input
 											type="submit" class="btn-danger btn-sm btn"
-											onclick="return confirm('Confirmer la suppression de ${m.nom}');"
+											onclick="return confirm('Confirmer la suppression de ${fn:escapeXml(m.nom)}');"
 											value="supprimer" />
 									</form>
 								</td>
