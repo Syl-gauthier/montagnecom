@@ -3,6 +3,7 @@ package com.cimpa.montagnecom.controler;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +21,7 @@ public class UserControler extends HttpServlet {
   /**
    * Default constructor.
    */
-  public UserControler() {
-    // TODO Auto-generated constructor stub
-  }
+  public UserControler() {}
 
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -53,6 +52,12 @@ public class UserControler extends HttpServlet {
         request.setAttribute("listType", mm.selectTypeList());
         request.setAttribute("listChaine", mm.selectChaineList());
         request.getRequestDispatcher("WEB-INF/user/index.jsp").forward(request, response);
+        return;
+      case "detail":
+        if(request.getParameter("nom") != null) {
+          request.setAttribute("m", mm.selectMontagne(request.getParameter("nom")));
+          request.getRequestDispatcher("WEB-INF/user/detail.jsp").forward(request, response);
+        }
         return;
       }
     }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +23,8 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">Rechercher</div>
 						</div>
-						<input type="text" name="recherche" class="form-control" id="inlineFormInputGroup"
-							placeholder="...">
+						<input type="text" name="recherche" class="form-control"
+							id="inlineFormInputGroup" placeholder="...">
 					</div>
 				</div>
 				<div class="mb-3 col">
@@ -53,18 +53,24 @@
 			<c:forEach var="m" items="${listMontagne}">
 				<div class="col">
 					<div class="card" style="width: 18rem;">
-						<img src="image?nom=${fn:escapeXml(m.image)}" class="card-img-top" alt="${fn:escapeXml(m.nom)}">
+						<img src="image?nom=${fn:escapeXml(m.image)}" class="card-img-top"
+							alt="${fn:escapeXml(m.nom)}">
 						<div class="card-body">
 							<p class="card-title h5">${fn:escapeXml(m.nom)}
-								<span class="card-subtitle text-muted"> ${fn:escapeXml(m.altitude)}m</span>
+								<span class="card-subtitle text-muted">
+									${fn:escapeXml(m.altitude)}m</span>
 							</p>
 							<h6 class="card-subtitle mb-2 text-muted">
-								<span class="mx-1">Chaine: ${fn:escapeXml(m.chaine.nom)}</span> <span
-									class="mx-1"> Type: ${fn:escapeXml(m.type.nom)}</span>
+								<span class="mx-1">Chaine: ${fn:escapeXml(m.chaine.nom)}</span>
+								<span class="mx-1"> Type: ${fn:escapeXml(m.type.nom)}</span>
 							</h6>
 							<div>Prix: ${fn:escapeXml(m.prix)}€</div>
 							<p class="card-text">${fn:substring(fn:escapeXml(m.description), 0, 200)}</p>
-							<a class="btn btn-success" href="#?type=detail&nom=${fn:escapeXml(m.nom)}">Détail</a>
+							<c:url value="" var="detailurl">
+								<c:param name="page" value="detail" />
+								<c:param name="nom" value="${fn:escapeXml(m.nom)}" />
+							</c:url>
+							<a class="btn btn-success" href="${detailurl}">Détail</a>
 						</div>
 					</div>
 				</div>
