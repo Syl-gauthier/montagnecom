@@ -157,6 +157,7 @@ public class AdminControler extends HttpServlet {
           System.out.println(m);
           mm.updateMontagne(m);
         }
+        break;
       case "disconnect":
         HttpSession session = request.getSession(false);
         session.invalidate();
