@@ -157,6 +157,10 @@ public class AdminControler extends HttpServlet {
           System.out.println(m);
           mm.updateMontagne(m);
         }
+      case "disconnect":
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        break;
       }
     }
     doGet(request, response);

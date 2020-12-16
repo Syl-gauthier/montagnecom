@@ -11,8 +11,8 @@
 <jsp:include page="/WEB-INF/templates/bootstrap.jsp" />
 </head>
 <body>
-	<h1 class="text-center m-5">Détail de ${fn:escapeXml(m.nom)} :</h1>
-	<div class="container">
+	<jsp:include page="/WEB-INF/templates/adminNavbar.jsp" />
+	<div class="container mt-5">
 		<form method="post" action="/montagnecom/admin">
 			<input type="hidden" name="form" value="update" />
 			<div class="form-row">

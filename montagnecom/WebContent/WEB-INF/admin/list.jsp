@@ -10,7 +10,7 @@
 <jsp:include page="/WEB-INF/templates/bootstrap.jsp" />
 </head>
 <body>
-	<h1 class="text-center m-5">Admin console</h1>
+	<jsp:include page="/WEB-INF/templates/adminNavbar.jsp" />
 	<div class="container-flud">
 		<div class="row my-3">
 			<div class="col-6 offset-3">
